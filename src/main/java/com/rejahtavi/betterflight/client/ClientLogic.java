@@ -110,7 +110,7 @@ public class ClientLogic {
         if (player == null) return;
 
         // track ground state for takeoff logic
-        if (player.isOnGround()) {
+        if (player.onGround()) {
             offGroundTickCounter = 0;
         }
         else {
@@ -147,7 +147,7 @@ public class ClientLogic {
     private static void tryFlap(LocalPlayer player) {
         if (isElytraEquipped
                 && cooldownTimer <= 0
-                && !player.isOnGround()
+                && !player.onGround()
                 && player.isFallFlying()) {
 
             if (spendCharge(player, ServerConfig.flapCost)) {
@@ -165,7 +165,7 @@ public class ClientLogic {
             return;
         }
 
-        int threshold = player.isOnGround() ? ServerConfig.rechargeTicksOnGround : ServerConfig.rechargeTicksInAir;
+        int threshold = player.onGround() ? ServerConfig.rechargeTicksOnGround : ServerConfig.rechargeTicksInAir;
 
         if (rechargeTickCounter < threshold) {
             rechargeTickCounter++;
@@ -187,7 +187,7 @@ public class ClientLogic {
         if (isElytraEquipped
                 && flareKey.isDown()
                 && (player.isCreative() || charge > 0)
-                && !player.isOnGround()
+                && !player.onGround()
                 && player.isFallFlying()) {
 
             CFlightActionPacket.send(FlightActionType.FLARE);
